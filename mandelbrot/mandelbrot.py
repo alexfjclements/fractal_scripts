@@ -23,8 +23,8 @@ def mandelbrot(threshold, density):
     # location and size of the atlas rectangle
     # realAxis = np.linspace(-2.25, 0.75, density)
     # imaginaryAxis = np.linspace(-1.5, 1.5, density)
-    realAxis = np.linspace(-0.22, -0.219, 5000)
-    imaginaryAxis = np.linspace(-0.70, -0.699, 5000)
+    realAxis = np.linspace(-0.22, -0.219, 20000)
+    imaginaryAxis = np.linspace(-0.70, -0.699, 20000)
     # realAxis = np.linspace(1, -2, 1000)
     # imaginaryAxis = np.linspace(1, -1, 1000)
     realAxisLen = len(realAxis)
