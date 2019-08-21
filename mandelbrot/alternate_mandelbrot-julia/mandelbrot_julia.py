@@ -1,4 +1,8 @@
-import math, colorsys
+# Source: http://0pointer.de/blog/projects/mandelbrot.html
+
+# Needs refactoring to produce a higher resolution image
+
+import colorsys
 from PIL import Image, ImageDraw
 
 dimensions = (800, 800)
