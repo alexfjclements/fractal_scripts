@@ -46,7 +46,7 @@ def mandelbrot(threshold, density):
 
     # plot and display mandelbrot set
     plt.imshow(atlas.T, interpolation="nearest")
-    plt.savefig('mandelbrot_set_at_1200dpi.png', format='png', dpi=1200)
+    plt.savefig('mandelbrot_set_at_1200dpi.png', format='png', dpi=2400)
     plt.show()
 
 
