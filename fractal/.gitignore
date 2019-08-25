@@ -1,0 +1,15 @@
+*.png
+*.svg
+*.pyc
+*.obj
+*.gif
+*.so
+mitsuba.*.log
+gen
+gen-*
+config.py
+.sconsign.dblite
+.sconf_temp
+config.log
+build
+poincare-checkpoint-*.obj

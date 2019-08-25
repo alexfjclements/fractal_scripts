@@ -1,0 +1,153 @@
+\documentclass[11pt]{article}
+\usepackage{amsfonts,amssymb,amsthm,eucal,amsmath}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage{latexsym,url}
+\usepackage{array}
+\usepackage{subfig}
+\usepackage{comment}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{cprotect}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\hypersetup{colorlinks=true,linkcolor=blue}
+\newcommand{\myspace}{\vspace{.1in}\noindent}
+\newcommand{\mymyspace}{\vspace{.1in}}
+\usepackage[inner=30mm, outer=30mm, textheight=225mm]{geometry}
+\creflabelformat{equation}{#2(#1)#3}
+\crefname{equation}{}{}
+\Crefname{equation}{}{}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{notn}[theorem]{Notation}
+\newtheorem{cond}[theorem]{Condition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{ex}[theorem]{Example}
+\newtheorem{rmk}[theorem]{Remark}
+\newcommand{\co}{\negthinspace :}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\PSL}{\mathrm{PSL}_2(\mathbb{C})}
+\newcommand{\area}{\operatorname{area}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\nt}{\negthinspace}
+\newcommand{\TODO}{{\color{red} TODO}}
+
+\title{Do hyperbolic tilings isometrically embed in $\R^3$?}
+\author{Geoffrey Irving\thanks{Email: \{irving\}@naml.us, Otherlab, San Francisco, CA, United States}}
+\date{Version 1, \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Do hyperbolic triangulations and other tilings isometrically embed in 3-space?
+Henry says this is unresolved, and may have been considered by Thurston.
+However, it seems like there is an amazing amount of slack in the result, so
+here are some thoughts.
+\end{abstract}
+
+\section{Hyperbolic triangulations}
+
+Let $T$ be the infinite valence 7 hyperbolic triangulation where each edge has length 1.
+Let $T_n$ be the radius $n$ portion of $T$ centered at a fixed origin vertex $0$.  Due to negative
+curvature, the number of triangles in $T_n$ is at least $\alpha^n$ for some $\alpha > 1$.
+
+\section{Isometric embeddings}
+
+Assume $T$ has an isometric embedding into $\R^3$, where each triangle is mapped to a unit length flat
+equilateral triangle.
+
+Given a vertex-triangle pair $(v,t)$ with $v \in t \in T$, let $f(v,t) \in \R^9$ be the three vertices
+of triangle $t$ in order starting at $v$ (all triangles are oriented since the hyperbolic plane is
+orientable).  Consider the image $f(T_n) \subset \R^9$: since $T_n$ has radius $\le n$, $f(T_n)$ must
+lie in ball of radius $3n+O(1)$, which therefore has volume at most $\beta (3n+O(1))^9$ where $\beta$
+is the volume of the unit 9-sphere.
+
+Now define
+$$d(n,k) = \sup \left\{ d | \exists q \in \R^9, vt_1 \ne \ldots \ne vt_k \in T_n . \left|f(vt_i) - q\right| < d \right\}$$
+Placing a radius $d(n,k)/2$ 9-sphere around each $f(vt)$ gives the volume inequality
+$$\beta d(n,k)^9 \alpha^n / k < \tau \beta (3n+O(1))^9$$
+where the extra factor of $\tau$ is needed to weed out parts of the little balls that go outside
+the large ball and the fact of two in $d(n,k)/2$.  Solving (and changing $\tau$), we have
+$$d(n,k) < \tau k^{1/9} n \alpha^{-n}.$$
+
+If we instead fix a separation distance $d(n,k) = \epsilon$, solving for $k$ gives
+$$k > \tau_\epsilon \frac{\alpha^n}{n^9}$$
+Thus, for an arbitrarily small notion of closeness, there is an exponentially large set of close triangles
+at most a linear geodesic distance apart.  Call the largest such set $P = P(\epsilon,n)$.
+Consider minimal geodesic paths $\gamma_{ij}$ between all pairs of centers of triangles in $P$.
+
+The next thing to do
+is to analyze the space swept out by the triangles along these paths, in an attempt to prove that the normals
+along at least most of the paths stay close to the source and destination normals (which are all close).
+And the next thing after that is to apply some sort of intermediate value theorem to show that this is impossible:
+either there must be intersections between the triangles as they change height, or we've almost embedded a chunk of
+hyperbolic space into $\R^2$.
+
+I think the second of the above conjectures is easier than the first.  Our plan of attack on the first is to
+define some notion of nonintersecting volume which becomes significantly nonzero if a geodesic path rotates
+out of the plane, and then prove that this volume blows up impossibly fast.  If we succeed, it will likely
+render the above weak calculation superfluous.
+
+The following is rough: Consider what happens when a dihedral angle between two adjacent triangles is bounded
+away from both 0 and $pi$ (neither flat not completely folded).  If we restrict to only considering similarly
+shaped hinges (which we can build into our volume measure), there can only be infinitely many stacked copies
+if they are nested.  Thus, our path space is either locally sparse or locally very nested with a local total order.
+The problem is that this total order is unlikely to conveniently propagate around since adjacent hinges necessarily
+keep flipping.  So this direction may go nowhere.
+
+More roughness: consider four close triangles $a,b,c,d$ in order from lowest to highest along their roughly
+shared normal $n$, and the geodesic paths $\gamma_{ac}$ and $\gamma_{db}$ both parameterized on $s \in [0,1]$.
+Consider the function
+$$h(s) = (n_{ac}(s) + n_{bd}(s)) \cdot \left(\gamma_{ac}(s) - \gamma_{bd}(s)\right)$$
+where $n_{ac}(s)$ and $n_{bd}(s)$ are (roughly) the normals to $\gamma_{ac}$ and $\gamma_{bd}$.  $h(s)$ can
+be made continuous if we add a delay at each edge crossing to slowly change normal.
+We have $h(0) < 0$, $h(1) > 0$, so there must be a zero crossing $h(s^*) = 0$.  What is happening at this
+crossing?  There are several (rough) options:
+\begin{enumerate}
+\item The two points lie in the same triangle of the same surface (or say within geodesic distance 2 on the surface).
+\item The two points are in different ``simplex classes'': triangle interior, edge interior, vertex.
+\item The two points are both in the interior of their triangles, and are far apart (necessary to cross).
+      Note that they may have opposite normals (is this a problem?).
+\item Both points are on the interior of their edges, but are on different looking hinges.  If the hinges
+      are sufficiently similar, $h(s)$ can't change sign.
+\item Both points are very close to a vertex.  I believe this still rules out a crossing.
+\end{enumerate}
+It seems like all but the first case should produce a nontrivial nonintersecting volume measure assigned to
+this crossing event.  Actually I don't know whether these events can be arranged to be nonintersecting so
+as to produce a contradiction.  In any case, we have another problem: if we have an exponential number of
+close triangles in $T_n$, is there at least an exponential number of pairs of pairs whose geodesics don't
+cross, and whose heights have the right ordering?
+
+\begin{comment}
+\begin{lemma}
+Let $P \subset B_r$ be a set of points separated by distance at least 1 in a hyperbolic disk of radius $r$
+with $|P| = \Theta(\beta^r)$ for some $\beta > 1$.  Totally order $P$.  Then there exists $\kappa > 1$
+and an ordered subset $p_1, \ldots, p_{2n} \in P$ with $n = \Theta(\kappa^r)$ s.t.\ the geodesics
+
+Let B(r) be a ball of radius r in the hyperbolic plane, which has
+volume Theta(A^r).  Choose Theta(A^r/r^9) points x_i pairwise
+separated by at least distance 1, and total order them somehow: x_1 <
+x_2 < ...  Does there exist an absolute constant B > 1 s.t. there
+always exists a totally ordered subsequence y_1 < ... < y_(2n) of size
+Theta(B^r) s.t. the n geodesics from y_i to y_(i+n) are pairwise
+separated by at least 1?
+
+Intuition: x_i are the centers of triangles that are very close
+together, and we want to arrive at a contradiction by analyzing how
+the various geodesics between x_i to x_j "change height order".  If
+the above was true, we wouldn't have to worry about the geodesics
+dodging contradictions by simply sharing triangles.
+\end{comment}
+
+\end{document}
